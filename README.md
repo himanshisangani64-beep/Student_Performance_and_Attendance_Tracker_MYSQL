@@ -231,13 +231,13 @@ The analysis queries generated several useful academic insights:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/himanshisangani64-beep/Student_Performance_andAttendance_Tracker.git
+git clone https://github.com/himanshisangani64-beep/Student_Performance_and_Attendance_Tracker_MYSQL
 ```
 
 ### 2. Open the Project
 
 ```bash
-cd Student_Performance_andAttendance_Tracker
+cd Student_Performance_andAttendance_Tracker_MYSQL
 ```
 
 ### 3. Open MySQL
