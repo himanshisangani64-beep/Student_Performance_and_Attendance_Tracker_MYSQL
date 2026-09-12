@@ -1372,7 +1372,7 @@ select Months,
        total,
        sum(total) over(order by Months) as running
 from(
-    select  month(enrollment_date) as Months , count(Student_id) as total
+    select  month(enrollment_date) as Months , count(distinct Student_id) as total
     from Enrollments
     group by Months 
 ) tem ;
@@ -1381,8 +1381,8 @@ from(
 +--------+-------+---------+
 | Months | total | running |
 +--------+-------+---------+
-|      6 |    33 |      33 |
-|      7 |     2 |      35 |
+|      6 |    29 |      29 |
+|      7 |     1 |      30 |
 +--------+-------+---------+
 2 rows in set (0.00 sec)
 
