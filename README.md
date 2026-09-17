@@ -385,7 +385,7 @@ Seven related tables are created.
 | -------------- | ----------------: | ----------------------------------- |
 | 🏢 Departments |                 5 | Stores department information       |
 | 🎓 Students    | 32 after deletion | Stores student information          |
-| 👨‍🏫 Faculty  |                25 | Stores faculty information          |
+| 👨‍🏫 Faculty     |                25 | Stores faculty information          |
 | 📚 Courses     |                25 | Stores course information           |
 | 📝 Enrollments |                38 | Stores student-course relationships |
 | 📅 Attendance  |                60 | Stores attendance records           |
@@ -1450,39 +1450,9 @@ Late    = 0.5
 Absent  = 0
 ```
 
-This enables more detailed attendance percentage calculations.
-
-### 📅 Dynamic Date Functions
-
-Several queries use:
-
-```sql
-CURDATE()
-```
-
-Therefore, time-based results can change automatically as the current date changes.
-
----
-
 ## ⚠️ Important Design Observations
 
-### 1. Admission-Date Column Naming
-
-The actual SQL schema uses:
-
-```text
-addmission_date
-```
-
-instead of the conventional spelling:
-
-```text
-admission_date
-```
-
-For consistency, the README reflects the actual SQL schema.
-
-### 2. Student Deletion Logic
+### 1. Student Deletion Logic
 
 The deletion query uses:
 
@@ -1494,7 +1464,7 @@ This compares calendar years rather than exact elapsed time.
 
 For a production system, a more precise date comparison could be used.
 
-### 3. Attendance and Grade Relationships
+### 2. Attendance and Grade Relationships
 
 For more precise course-level analysis, Attendance and Grades should generally be joined using both:
 
@@ -1506,7 +1476,7 @@ course_id
 
 to avoid accidental matching between different courses for the same student.
 
-### 4. Data Validation
+### 3. Data Validation
 
 For a production-ready version, additional constraints could be added for:
 
@@ -1663,74 +1633,6 @@ Run the analytical queries from the SQL file to reproduce:
 * String transformation
 * Running totals
 * Student classification
-
----
-
-# 📊 SQL Concepts Covered
-
-```text
-✓ Database Creation
-✓ Table Creation
-✓ INSERT
-✓ SELECT
-✓ UPDATE
-✓ DELETE
-✓ Primary Keys
-✓ Foreign Keys
-✓ Constraints
-✓ ON DELETE CASCADE
-✓ INNER JOIN
-✓ LEFT JOIN
-✓ Subqueries
-✓ GROUP BY
-✓ HAVING
-✓ COUNT()
-✓ SUM()
-✓ AVG()
-✓ MAX()
-✓ MIN()
-✓ CASE
-✓ YEAR()
-✓ MONTH()
-✓ CURDATE()
-✓ DATEDIFF()
-✓ DATE_FORMAT()
-✓ TIMESTAMPDIFF()
-✓ CONCAT()
-✓ UPPER()
-✓ LOWER()
-✓ TRIM()
-✓ REPLACE()
-✓ DENSE_RANK()
-✓ SUM() OVER()
-✓ Running Totals
-✓ Attendance Percentage
-✓ Academic Classification
-```
-
----
-
-# 🎯 Learning Outcomes
-
-By completing this project, the following practical SQL skills are demonstrated:
-
-* Designing relational databases
-* Creating connected database tables
-* Applying Primary and Foreign Keys
-* Maintaining referential integrity
-* Performing CRUD operations
-* Joining multiple tables
-* Writing analytical SQL queries
-* Using aggregate functions
-* Working with subqueries
-* Performing date-based analysis
-* Performing string transformations
-* Using Window Functions
-* Ranking records using `DENSE_RANK()`
-* Creating running totals
-* Calculating attendance percentages
-* Classifying academic performance
-* Converting raw academic data into meaningful insights
 
 ---
 
