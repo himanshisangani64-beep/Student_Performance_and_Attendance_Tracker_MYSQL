@@ -312,32 +312,32 @@ This means dependent enrollment, attendance and grade records can be automatical
                                │
                                ▼
                   ┌─────────────────────────┐
-                  │ Create Database          │
-                  │ Student_Performance_...  │
+                  │ Create Database         │
+                  │ Student_Performance_... │
                   └────────────┬────────────┘
                                │
                                ▼
                   ┌─────────────────────────┐
-                  │ Create 7 Tables          │
-                  │ Departments              │
-                  │ Students                 │
-                  │ Faculty                  │
-                  │ Courses                  │
-                  │ Enrollments              │
-                  │ Attendance               │
-                  │ Grades                   │
+                  │ Create 7 Tables         │
+                  │ Departments             │
+                  │ Students                │
+                  │ Faculty                 │
+                  │ Courses                 │
+                  │ Enrollments             │
+                  │ Attendance              │
+                  │ Grades                  │
                   └────────────┬────────────┘
                                │
                                ▼
                   ┌─────────────────────────┐
-                  │ Insert Sample Data       │
-                  │ Departments              │
-                  │ Students                 │
-                  │ Faculty                  │
-                  │ Courses                  │
-                  │ Enrollments              │
-                  │ Attendance               │
-                  │ Grades                   │
+                  │ Insert Sample Data      │
+                  │ Departments             │
+                  │ Students                │
+                  │ Faculty                 │
+                  │ Courses                 │
+                  │ Enrollments             │
+                  │ Attendance              │
+                  │ Grades                  │
                   └────────────┬────────────┘
                                │
                                ▼
@@ -350,11 +350,11 @@ This means dependent enrollment, attendance and grade records can be automatical
           └────────────────────┼────────────────────┘
                                ▼
                   ┌─────────────────────────┐
-                  │ Advanced SQL Analysis    │
-                  │ Window Functions         │
-                  │ Date Functions           │
-                  │ String Functions         │
-                  │ CASE Expressions         │
+                  │ Advanced SQL Analysis   │
+                  │ Window Functions        │
+                  │ Date Functions          │
+                  │ String Functions        │
+                  │ CASE Expressions        │
                   └────────────┬────────────┘
                                │
                                ▼
@@ -680,31 +680,8 @@ This demonstrates the fundamental **CRUD operations** used in relational databas
 
 ---
 
-## 🗑️ 2. Student Deletion Analysis
 
-The SQL file contains a deletion operation using an `INNER JOIN`:
-
-```sql
-DELETE s1
-FROM Students s1
-INNER JOIN Enrollments e1
-ON s1.Student_id = e1.Student_id
-WHERE YEAR(CURDATE()) - YEAR(e1.enrollment_date) = 1;
-```
-
-The operation removes matching student records based on the enrollment-year condition.
-
-Because the student relationships use:
-
-```sql
-ON DELETE CASCADE
-```
-
-related enrollment, attendance and grade records can also be affected when the corresponding student is deleted.
-
----
-
-## 📅 3. Student Admission & Date Analysis
+## 📅 2. Student Admission & Date Analysis
 
 The project uses date functions to analyze student admission and academic records.
 
@@ -728,7 +705,7 @@ These functions are used to:
 
 ---
 
-## 📊 4. Attendance Percentage Analysis
+## 📊 3. Attendance Percentage Analysis
 
 Attendance records are converted into numerical values:
 
@@ -750,7 +727,7 @@ This provides an overall view of attendance performance across the dataset.
 
 ---
 
-## ⚠️ 5. Students Below 75% Attendance
+## ⚠️ 4. Students Below 75% Attendance
 
 The project identifies students whose attendance is below the 75% threshold.
 
@@ -776,7 +753,7 @@ This demonstrates the use of:
 
 ---
 
-## 🚫 6. Students Below 50% Attendance & Failing
+## 🚫 5. Students Below 50% Attendance & Failing
 
 The project also checks students who satisfy both:
 
@@ -798,7 +775,7 @@ This demonstrates combining multiple academic conditions in SQL.
 
 ---
 
-## 📈 7. Attendance Performance Categories
+## 📈 6. Attendance Performance Categories
 
 A `CASE` expression categorizes students according to attendance percentage.
 
@@ -828,7 +805,7 @@ while students with attendance between 50% and 80% are categorized as **Irregula
 
 ---
 
-## 🏆 8. Highest & Lowest Marks
+## 🏆 7. Highest & Lowest Marks
 
 The project analyzes student grades to identify academic extremes.
 
@@ -855,7 +832,7 @@ and related aggregation techniques.
 
 ---
 
-## 📊 9. Average Marks by Course
+## 📊 8. Average Marks by Course
 
 The project calculates average marks for each course.
 
@@ -899,7 +876,7 @@ for course-level performance analysis.
 
 ---
 
-## 🏅 10. Student Ranking Using DENSE_RANK()
+## 🏅 9. Student Ranking Using DENSE_RANK()
 
 A Window Function is used to rank students based on marks.
 
@@ -920,7 +897,7 @@ This demonstrates advanced SQL ranking without collapsing individual student rec
 
 ---
 
-## 📈 11. Students Above Overall Average
+## 📈 10. Students Above Overall Average
 
 The project compares individual student marks with the overall average.
 
@@ -940,29 +917,7 @@ This demonstrates the use of:
 
 ---
 
-## 👨‍🏫 12. Faculty With Multiple Courses
-
-The project identifies faculty members assigned to more than one course.
-
-### Result
-
-| **Faculty** | **Number of Courses** |
-| ----------- | --------------------: |
-| Amit Shah   |                     2 |
-| Neha Joshi  |                     2 |
-| Ravi Mehta  |                     3 |
-| Akash Mehta |                     2 |
-
-This demonstrates:
-
-```sql
-GROUP BY
-HAVING COUNT(*) > 1
-```
-
----
-
-## 🚫 13. Faculty Without Courses
+## 🚫 11. Faculty Without Courses
 
 The project checks whether any faculty members are not assigned to courses.
 
@@ -982,7 +937,7 @@ This demonstrates how `LEFT JOIN` can be used to identify unmatched records.
 
 ---
 
-## 🎓 14. Students Not Enrolled in Courses
+## 🎓 12. Students Not Enrolled in Courses
 
 The project identifies students who do not have enrollment records.
 
@@ -1004,7 +959,7 @@ WHERE ... IS NULL
 
 ---
 
-## 📊 15. Students Without Grades
+## 📊 13. Students Without Grades
 
 A Full Outer Join-style analysis is used to identify students without corresponding grade records.
 
@@ -1019,7 +974,7 @@ These students do not have matching grade records in the dataset.
 
 ---
 
-## 🏢 16. Students by Department
+## 🏢 14. Students by Department
 
 The project performs department-wise student analysis.
 
@@ -1045,7 +1000,7 @@ for department-level analysis.
 
 ---
 
-## 📅 17. Attendance Month Analysis
+## 📅 15. Attendance Month Analysis
 
 The `MONTH()` function is used to extract the month from attendance dates.
 
@@ -1065,7 +1020,7 @@ This demonstrates practical date extraction for attendance reporting.
 
 ---
 
-## ⏳ 18. Years Since Admission
+## ⏳ 16. Years Since Admission
 
 The project uses date-difference calculations to determine the number of years since student admission.
 
@@ -1089,7 +1044,7 @@ based on the stored admission dates and current date.
 
 ---
 
-## 📅 19. Date Formatting
+## 📅 17. Date Formatting
 
 The project formats dates using:
 
@@ -1107,7 +1062,7 @@ This demonstrates how SQL can transform database dates into user-friendly report
 
 ---
 
-## 🔤 20. String Functions
+## 🔤 18. String Functions
 
 Several SQL string functions are demonstrated.
 
@@ -1140,108 +1095,6 @@ TRIM(name)
 Replaces `NULL` or unwanted values using conditional logic.
 
 These operations demonstrate practical data-cleaning and transformation techniques.
-
----
-
-## 📈 21. Cumulative Attendance Analysis
-
-A Window Function is used to calculate cumulative attendance-related values across courses.
-
-Example:
-
-```sql
-SUM(...)
-OVER(
-    ORDER BY ...
-    ROWS BETWEEN UNBOUNDED PRECEDING
-    AND CURRENT ROW
-)
-```
-
-This demonstrates how Window Functions can calculate cumulative metrics while preserving individual rows.
-
----
-
-## 📈 22. Running Total of Student Enrollments
-
-The project calculates the running total of distinct students enrolled by month.
-
-The resulting cumulative counts include:
-
-| **Month** | **New Students** | **Running Total** |
-| --------- | ---------------: | ----------------: |
-| June      |               29 |                29 |
-| July      |                1 |                30 |
-
-### Final Running Total
-
-```text
-30 distinct students
-```
-
-This demonstrates:
-
-```sql
-SUM() OVER()
-```
-
-combined with grouped date analysis.
-
----
-
-## 🏷️ 23. Student Performance Classification
-
-A `CASE` expression categorizes students according to marks.
-
-### Classification Rule
-
-| **Marks** | **Performance Level** |
-| --------- | --------------------- |
-| > 90      | Excellent             |
-| 75 – 90   | Good                  |
-| Below 75  | Needs Improvement     |
-
-Example:
-
-```sql
-CASE
-    WHEN marks_obtained > 90 THEN 'Excellent'
-    WHEN marks_obtained >= 75 THEN 'Good'
-    ELSE 'Needs Improvement'
-END
-```
-
-This converts numerical academic performance into meaningful categories.
-
----
-
-## 📊 24. Course-wise Highest & Lowest Marks
-
-The project calculates the highest and lowest marks for individual courses.
-
-This provides course-level performance analysis and demonstrates the use of:
-
-```sql
-MAX()
-MIN()
-GROUP BY
-```
-
----
-
-## 🧮 25. Overall Academic Analysis
-
-The project combines multiple SQL techniques to analyze:
-
-* Student performance
-* Course performance
-* Attendance
-* Faculty workload
-* Department distribution
-* Enrollment records
-* Academic rankings
-
-This makes the database suitable for practical SQL and data-analysis practice.
 
 ---
 
