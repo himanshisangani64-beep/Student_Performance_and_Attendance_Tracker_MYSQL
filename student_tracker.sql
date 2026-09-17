@@ -1064,7 +1064,7 @@ from Attendance;
 
 select Student_id,
      timestampdiff(year, addmission_date, CURDATE()) AS years_since_admission
-year Students;
+from Students;
 
 -- OutPut
 +------------+-------+
