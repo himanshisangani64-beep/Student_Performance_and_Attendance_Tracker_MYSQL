@@ -1,14 +1,8 @@
-<div align="center">
+# 🎓 Student Performance and Attendance Tracker
 
-# 🎓 University Course Management System
+### *Interactive MySQL Database, Student Management, Attendance Tracking & Academic Performance Analysis Project*
 
-### *Interactive MySQL Database, Student Management & Academic Analysis Project*
-
-<br/>
-
-> *"Transform academic data into meaningful insights with SQL."*
-
-</div>
+> *"Transform student data into meaningful academic insights with SQL."*
 
 ---
 
@@ -18,6 +12,8 @@
 * [🎯 Problem Statement](#-problem-statement)
 * [✨ Key Features](#-key-features)
 * [🏗️ Project Structure](#️-project-structure)
+* [🗃️ Database Structure](#️-database-structure)
+* [🔗 Relationships](#-relationships)
 * [🔄 Project Workflow](#-project-workflow)
 * [📥 Part A — Database & Data Input](#-part-a--database--data-input)
 * [📊 Part B — Academic Data Analysis](#-part-b--academic-data-analysis)
@@ -34,244 +30,337 @@
 
 ## 📌 Overview
 
-The **University Course Management System** is a MySQL-based relational database project designed to manage and analyze university academic information such as **departments, courses, instructors, students, and course enrollments**.
+The **Student Performance and Attendance Tracker** is a MySQL-based relational database project designed to manage and analyze student academic information, including:
+
+* Student details
+* Departments
+* Faculty
+* Courses
+* Course enrollments
+* Attendance records
+* Academic grades
 
 The project demonstrates practical SQL concepts including:
 
 * Database and table creation
-* Primary and Foreign Keys
-* Unique constraints
+* Primary Keys and Foreign Keys
+* Referential integrity
+* `ON DELETE CASCADE`
 * CRUD operations
-* INNER JOIN and LEFT JOIN
+* `INNER JOIN`
+* `LEFT JOIN`
 * Subqueries
 * Aggregate functions
 * `GROUP BY` and `HAVING`
 * Date functions
 * String functions
-* Window functions
 * `CASE` expressions
+* Window functions
+* `DENSE_RANK()`
 * Running-total analysis
-* Relational data modeling
+* Attendance percentage calculation
+* Student performance classification
+* Attendance classification
 
 The project is designed to:
 
-* Build a structured university database using MySQL
-* Manage departments, courses, instructors and students
-* Establish relationships using Primary Keys and Foreign Keys
+* Build a structured student management database using MySQL
+* Maintain department, student, faculty and course information
 * Track student course enrollments
-* Analyze course popularity and student enrollment
-* Retrieve students based on enrollment criteria
-* Perform department-wise academic analysis
-* Apply date-based student classification
-* Use SQL functions for data transformation
-* Convert academic data into useful analytical insights
+* Record student attendance
+* Store academic marks and grades
+* Identify students with low attendance
+* Analyze student performance
+* Calculate attendance percentages
+* Rank students based on marks
+* Categorize students according to attendance
+* Classify academic performance using `CASE`
+* Perform department-wise and course-wise analysis
+* Apply date and string functions
+* Generate meaningful academic insights using SQL
 
 ---
 
 ## 🎯 Problem Statement
 
-> **Objective:** Build a relational university database and use SQL queries to manage, retrieve, transform and analyze academic data.
+> **Objective:** Build a relational database system for managing student academic information and use SQL queries to analyze attendance, enrollment, grades, faculty, courses and student performance.
 
-The system contains five major entities:
+The system contains seven major entities:
 
 * **Departments**
-* **Courses**
-* **Instructors**
 * **Students**
+* **Faculty**
+* **Courses**
 * **Enrollments**
+* **Attendance**
+* **Grades**
 
-SQL queries are used to answer practical academic questions related to student enrollment, course popularity, departments, instructors, course credits, date analysis, string transformation and running totals.
+SQL queries are used to answer practical academic questions related to:
 
-| 📂 Feature             | 📄 Type            | 🔍 Description                                     |
-| ---------------------- | ------------------ | -------------------------------------------------- |
-| Department Management  | Database           | Stores university department information           |
-| Course Management      | Academic Data      | Stores courses, credits and departments            |
-| Instructor Management  | Faculty Data       | Stores instructor details and departments          |
-| Student Management     | Student Data       | Stores student personal and enrollment information |
-| Enrollment Management  | Transaction Data   | Connects students with courses                     |
-| Course Popularity      | Aggregation        | Identifies courses with high student enrollment    |
-| Department Analysis    | JOIN + Aggregation | Counts students enrolled by department             |
-| Student Filtering      | WHERE              | Retrieves students based on enrollment year        |
-| Subquery Analysis      | Subquery           | Finds students in highly enrolled courses          |
-| Date Analysis          | Date Function      | Extracts enrollment year                           |
-| String Processing      | String Function    | Creates instructor full names                      |
-| Running Total          | Window Function    | Calculates cumulative student enrollments          |
-| Student Classification | `CASE`             | Labels students as Senior or Junior                |
+* Student enrollment
+* Department distribution
+* Course enrollment
+* Faculty assignments
+* Attendance performance
+* Grade analysis
+* Student ranking
+* Course-wise marks
+* Academic performance
+* Attendance categories
+* Date-based analysis
+* String transformation
 
-The goal is to demonstrate **practical SQL, relational database design and academic data-analysis skills** through a structured university management system.
+### 📊 Major Functional Areas
+
+| **Feature**                | **Type**         | **Description**                                             |
+| -------------------------- | ---------------- | ----------------------------------------------------------- |
+| Department Management      | Database         | Stores academic department information                      |
+| Student Management         | Student Data     | Stores student personal and academic information            |
+| Faculty Management         | Faculty Data     | Stores faculty information and department relationships     |
+| Course Management          | Academic Data    | Stores courses and assigned faculty                         |
+| Enrollment Management      | Transaction Data | Connects students with courses                              |
+| Attendance Tracking        | Attendance Data  | Stores Present, Absent and Late attendance                  |
+| Grade Management           | Academic Data    | Stores marks and grades                                     |
+| Attendance Analysis        | Aggregation      | Calculates student attendance percentages                   |
+| Low Attendance Detection   | Filtering        | Identifies students below attendance thresholds             |
+| Course Performance         | Aggregation      | Calculates average marks by course                          |
+| Student Ranking            | Window Function  | Ranks students using `DENSE_RANK()`                         |
+| Performance Classification | `CASE`           | Classifies students as Excellent, Good or Needs Improvement |
+| Attendance Classification  | `CASE`           | Classifies students as Regular, Irregular or Defaulter      |
+| Date Analysis              | Date Functions   | Extracts months, years and calculates date differences      |
+| String Processing          | String Functions | Performs text transformation and formatting                 |
+| Running Total              | Window Function  | Calculates cumulative enrollment information                |
+
+The goal is to demonstrate **practical SQL, relational database design, data integrity and academic data-analysis skills** through a structured student management system.
 
 ---
 
 ## ✨ Key Features
 
-| Feature                         | Description                                            |
-| ------------------------------- | ------------------------------------------------------ |
-| 🗄️ **Relational Database**     | Creates a structured university database using MySQL   |
-| 🏢 **Department Management**    | Stores 4 university departments                        |
-| 📚 **Course Management**        | Stores 25 academic courses                             |
-| 👨‍🏫 **Instructor Management** | Stores 20 instructors with department relationships    |
-| 🎓 **Student Management**       | Stores 20 student records                              |
-| 📝 **Enrollment Management**    | Stores 35 student-course enrollment records            |
-| 🔐 **Primary & Foreign Keys**   | Maintains relational integrity                         |
-| 🔗 **INNER JOIN**               | Retrieves students and their corresponding courses     |
-| 🔗 **LEFT JOIN**                | Retrieves all students and their courses, if available |
-| 🧠 **Subquery**                 | Identifies students enrolled in highly popular courses |
-| 📊 **GROUP BY + HAVING**        | Finds courses with more than 5 students                |
-| 📅 **Date Analysis**            | Extracts enrollment years                              |
-| 🔤 **String Operations**        | Concatenates instructor first and last names           |
-| 📈 **Running Total**            | Calculates cumulative course enrollments               |
-| 🏷️ **CASE Expression**         | Classifies students as Senior or Junior                |
-| 🛠️ **CRUD Operations**         | Demonstrates Create, Read, Update and Delete concepts  |
+| **Feature**                   | **Description**                                               |
+| ----------------------------- | ------------------------------------------------------------- |
+| 🗄️ **Relational Database**   | Creates a structured academic database using MySQL            |
+| 🏢 **Department Management**  | Stores 5 academic departments                                 |
+| 🎓 **Student Management**     | Stores student personal and academic information              |
+| 👨‍🏫 **Faculty Management**  | Stores 25 faculty records                                     |
+| 📚 **Course Management**      | Stores 25 academic courses                                    |
+| 📝 **Enrollment Management**  | Tracks student-course relationships                           |
+| 📅 **Attendance Tracking**    | Records Present, Absent and Late status                       |
+| 📊 **Grade Tracking**         | Stores student marks and grades                               |
+| 🔐 **Primary & Foreign Keys** | Maintains relational integrity                                |
+| 🔗 **INNER JOIN**             | Combines related academic records                             |
+| 🔗 **LEFT JOIN**              | Identifies records with and without matching data             |
+| 🧠 **Subqueries**             | Performs nested academic analysis                             |
+| 📊 **GROUP BY + HAVING**      | Performs grouped analysis and filtering                       |
+| 📈 **Aggregate Functions**    | Uses `AVG`, `COUNT`, `SUM` and other functions                |
+| 📅 **Date Analysis**          | Uses `YEAR`, `MONTH`, `DATEDIFF`, `CURDATE` and `DATE_FORMAT` |
+| 🔤 **String Functions**       | Uses `CONCAT`, `UPPER`, `LOWER`, `TRIM` and `REPLACE`         |
+| 📈 **Window Functions**       | Uses `SUM() OVER()` and `DENSE_RANK()`                        |
+| 🏷️ **CASE Expression**       | Classifies student performance and attendance                 |
+| 🗑️ **ON DELETE CASCADE**     | Maintains dependent student records                           |
+| 📊 **Academic Insights**      | Converts database records into meaningful results             |
 
 ---
 
-## 🏗️ Project Structure
+# 🏗️ Project Structure
 
 ```text
-📦 University-Course-Management-System/
+📦 Student-Performance-and-Attendance-Tracker/
 │
-├── 📄 University_Course_Management_System.sql
+├── 📄 Student_Performance_and_Attendance_Tracker.sql
 │   ├── Database Creation
 │   ├── Table Creation
 │   ├── Sample Data
 │   ├── CRUD Operations
-│   └── 15 Academic Analysis Queries
+│   ├── Attendance Analysis
+│   ├── Grade Analysis
+│   ├── JOIN Queries
+│   ├── Subqueries
+│   ├── Date Functions
+│   ├── String Functions
+│   ├── Window Functions
+│   └── 33 SQL Analysis Queries
 │
 ├── 📄 README.md
 │   └── Project Documentation
 │
-└── 📁 Screenshots/                 ← Optional
+└── 📁 Screenshots/
     └── SQL Query Outputs
 ```
 
-### 🗃️ Database Structure
+---
+
+# 🗃️ Database Structure
 
 ```text
-University_Course_Management_System
+Student_Performance_andAttendance_Tracker
 │
 ├── 🏢 Departments
-│   ├── DepartmentID (PK)
-│   └── DepartmentName
-│
-├── 📚 Courses
-│   ├── CourseID (PK)
-│   ├── CourseName
-│   ├── DepartmentID (FK)
-│   └── Credits
-│
-├── 👨‍🏫 Instructors
-│   ├── InstructorID (PK)
-│   ├── FirstName
-│   ├── LastName
-│   ├── Email (UNIQUE)
-│   └── DepartmentID (FK)
+│   ├── department_id (PK)
+│   └── department_name
 │
 ├── 🎓 Students
-│   ├── StudentID (PK)
-│   ├── FirstName
-│   ├── LastName
-│   ├── Email
-│   ├── BirthDate
-│   └── EnrollmentDate
+│   ├── Student_id (PK)
+│   ├── name
+│   ├── dob
+│   ├── gender
+│   ├── email
+│   ├── phone_number
+│   ├── address
+│   ├── addmission_date
+│   └── department_id (FK)
 │
-└── 📝 Enrollments
-    ├── EnrollmentID (PK)
-    ├── StudentID (FK)
-    ├── CourseID (FK)
-    └── EnrollmentDate
+├── 👨‍🏫 Faculty
+│   ├── faculty_id (PK)
+│   ├── name
+│   ├── email
+│   ├── phone_number
+│   └── department_id (FK)
+│
+├── 📚 Courses
+│   ├── course_id (PK)
+│   ├── course_name
+│   └── faculty_id (FK)
+│
+├── 📝 Enrollments
+│   ├── enrollment_id (PK)
+│   ├── Student_id (FK)
+│   ├── course_id (FK)
+│   └── enrollment_date
+│
+├── 📅 Attendance
+│   ├── attendance_id (PK)
+│   ├── Student_id (FK)
+│   ├── course_id (FK)
+│   ├── attendance_date
+│   └── status
+│
+└── 📊 Grades
+    ├── grade_id (PK)
+    ├── Student_id (FK)
+    ├── course_id (FK)
+    ├── marks_obtained
+    └── grade
 ```
 
-### 🔗 Relationships
+---
+
+# 🔗 Relationships
 
 ```text
 Departments
     │
-    ├─────────────── 1 : N ─────────────── Courses
+    ├────────────── 1 : N ────────────── Students
     │
-    └─────────────── 1 : N ─────────────── Instructors
-
-
-Students
-    │
-    │ 1
-    │
-    ▼
-Enrollments
-    │
-    │ N
-    ▼
-Courses
+    └────────────── 1 : N ────────────── Faculty
+                                             │
+                                             │ 1 : N
+                                             ▼
+                                         Courses
+                                             │
+                              ┌──────────────┼──────────────┐
+                              │              │              │
+                              ▼              ▼              ▼
+                         Enrollments     Attendance       Grades
+                              │              │              │
+                              └──────────────┼──────────────┘
+                                             │
+                                             ▼
+                                          Students
 ```
 
-The `Courses.DepartmentID` column references `Departments.DepartmentID`.
+### 🔑 Foreign Key Relationships
 
-The `Instructors.DepartmentID` column references `Departments.DepartmentID`.
+The `Students.department_id` column references:
 
-The `Enrollments.StudentID` and `Enrollments.EnrollmentDate` columns reference the corresponding student record.
+```text
+Departments.department_id
+```
 
-The student relationship uses:
+The `Faculty.department_id` column references:
+
+```text
+Departments.department_id
+```
+
+The `Courses.faculty_id` column references:
+
+```text
+Faculty.faculty_id
+```
+
+The following tables reference students:
+
+```text
+Enrollments.Student_id
+Attendance.Student_id
+Grades.Student_id
+```
+
+These student relationships use:
 
 ```sql
 ON DELETE CASCADE
 ```
 
-for the composite foreign key.
+This means dependent enrollment, attendance and grade records can be automatically removed when the related student record is deleted.
 
 ---
 
-## 🔄 Project Workflow
+# 🔄 Project Workflow
 
 ```text
-                    🚀 Project Start
-                          │
-                          ▼
-              ┌────────────────────────┐
-              │ Create Database         │
-              │ University_Course_...   │
-              └───────────┬────────────┘
-                          │
-                          ▼
-              ┌────────────────────────┐
-              │ Create 5 Tables         │
-              │ Departments             │
-              │ Courses                 │
-              │ Instructors             │
-              │ Students                │
-              │ Enrollments             │
-              └───────────┬────────────┘
-                          │
-                          ▼
-              ┌────────────────────────┐
-              │ Insert Sample Data      │
-              │ 4 Departments           │
-              │ 25 Courses              │
-              │ 20 Instructors          │
-              │ 20 Students             │
-              │ 35 Enrollments          │
-              └───────────┬────────────┘
-                          │
-                          ▼
-              ┌────────────────────────┐
-              │ SQL Analysis            │
-              │ Academic Queries        │
-              └───────────┬────────────┘
-                          │
-          ┌───────────────┼─────────────────┐
-          ▼               ▼                 ▼
-       🔗 JOINs       🧠 Subqueries     📊 Aggregation
-          │               │                 │
-          └───────────────┼─────────────────┘
-                          ▼
-              ┌────────────────────────┐
-              │ Advanced SQL Analysis   │
-              │ Window Functions        │
-              │ Date Functions          │
-              │ String Functions        │
-              │ CASE Expressions        │
-              └───────────┬────────────┘
-                          │
-                          ▼
-                   💡 Academic Insights
+                         🚀 Project Start
+                               │
+                               ▼
+                  ┌─────────────────────────┐
+                  │ Create Database          │
+                  │ Student_Performance_...  │
+                  └────────────┬────────────┘
+                               │
+                               ▼
+                  ┌─────────────────────────┐
+                  │ Create 7 Tables          │
+                  │ Departments              │
+                  │ Students                 │
+                  │ Faculty                  │
+                  │ Courses                  │
+                  │ Enrollments              │
+                  │ Attendance               │
+                  │ Grades                   │
+                  └────────────┬────────────┘
+                               │
+                               ▼
+                  ┌─────────────────────────┐
+                  │ Insert Sample Data       │
+                  │ Departments              │
+                  │ Students                 │
+                  │ Faculty                  │
+                  │ Courses                  │
+                  │ Enrollments              │
+                  │ Attendance               │
+                  │ Grades                   │
+                  └────────────┬────────────┘
+                               │
+                               ▼
+                     📊 SQL Analysis
+                               │
+          ┌────────────────────┼────────────────────┐
+          ▼                    ▼                    ▼
+       🔗 JOINs            🧠 Subqueries       📊 Aggregation
+          │                    │                    │
+          └────────────────────┼────────────────────┘
+                               ▼
+                  ┌─────────────────────────┐
+                  │ Advanced SQL Analysis    │
+                  │ Window Functions         │
+                  │ Date Functions           │
+                  │ String Functions         │
+                  │ CASE Expressions         │
+                  └────────────┬────────────┘
+                               │
+                               ▼
+                     💡 Academic Insights
 ```
 
 ---
@@ -280,124 +369,160 @@ for the composite foreign key.
 
 ## 📝 1. Database Creation
 
-The project starts by creating and selecting the university database:
+The project starts by creating and selecting the academic database:
 
 ```sql
-CREATE DATABASE University_Course_Management_System;
+CREATE DATABASE Student_Performance_andAttendance_Tracker;
 
-USE University_Course_Management_System;
+USE Student_Performance_andAttendance_Tracker;
 ```
 
 ---
 
 ## 🗂️ 2. Database Tables
 
-Five related tables are created.
+Seven related tables are created.
 
-| Table             | Records | Main Purpose                   |
-| ----------------- | ------: | ------------------------------ |
-| 🏢 Departments    |       4 | University departments         |
-| 📚 Courses        |      25 | Academic course information    |
-| 👨‍🏫 Instructors |      20 | Instructor/faculty information |
-| 🎓 Students       |      20 | Student information            |
-| 📝 Enrollments    |      35 | Student-course relationships   |
+| **Table**      |       **Records** | **Main Purpose**                    |
+| -------------- | ----------------: | ----------------------------------- |
+| 🏢 Departments |                 5 | Stores department information       |
+| 🎓 Students    | 32 after deletion | Stores student information          |
+| 👨‍🏫 Faculty  |                25 | Stores faculty information          |
+| 📚 Courses     |                25 | Stores course information           |
+| 📝 Enrollments |                38 | Stores student-course relationships |
+| 📅 Attendance  |                60 | Stores attendance records           |
+| 📊 Grades      |                30 | Stores academic marks and grades    |
+
+> **Note:** The SQL file initially inserts 35 students and later removes 3 records using a `DELETE` query. Therefore, subsequent analysis operates on **32 remaining students**.
 
 ---
 
 ## 🏢 3. Departments Table
 
-The `Departments` table contains:
+The `Departments` table stores academic department information.
 
-* `DepartmentID` — Primary Key with Auto Increment
-* `DepartmentName`
+```text
+Departments
+├── department_id
+└── department_name
+```
 
 ### Departments
 
 ```text
 1. Computer Science
-2. Mathematics
-3. Commerce
-4. Diploma
+2. Commerce
+3. Diploma
+4. Information Technology
+5. Business Administration
 ```
+
+The table uses:
+
+```sql
+department_id INT PRIMARY KEY
+```
+
+to uniquely identify each department.
 
 ---
 
-## 📚 4. Courses Table
+## 🎓 4. Students Table
 
-The `Courses` table stores academic course information:
-
-```text
-Courses
-├── CourseID
-├── CourseName
-├── DepartmentID
-└── Credits
-```
-
-The `DepartmentID` is a Foreign Key connected to the `Departments` table.
-
-Example courses include:
-
-* Introduction to SQL
-* Data Structures
-* Machine Learning
-* Artificial Intelligence
-* Data Science
-* Statistics
-* Linear Algebra
-* Cyber Security
-* Software Engineering
-* Web Development
-* Finance
-* Accounting
-* Business Management
-
-The dataset contains **25 courses**.
-
----
-
-## 👨‍🏫 5. Instructors Table
-
-The `Instructors` table stores faculty information:
-
-```text
-Instructors
-├── InstructorID
-├── FirstName
-├── LastName
-├── Email
-└── DepartmentID
-```
-
-The `Email` field is defined as `UNIQUE` to prevent duplicate instructor email addresses.
-
-The dataset contains **20 instructors**.
-
----
-
-## 🎓 6. Students Table
-
-The `Students` table stores student information:
+The `Students` table stores student information.
 
 ```text
 Students
-├── StudentID
-├── FirstName
-├── LastName
-├── Email
-├── BirthDate
-└── EnrollmentDate
+├── Student_id
+├── name
+├── dob
+├── gender
+├── email
+├── phone_number
+├── address
+├── addmission_date
+└── department_id
 ```
 
-The dataset contains **20 students** with enrollment dates ranging from **2021 to 2026**.
+The `Student_id` column is the Primary Key.
 
-A composite unique constraint is created on:
+The `department_id` column connects students with their departments.
 
-```sql
-UNIQUE(StudentID, EnrollmentDate)
+The project initially contains **35 students**.
+
+After the deletion operation, **32 students remain** for subsequent analysis.
+
+---
+
+## 👨‍🏫 5. Faculty Table
+
+The `Faculty` table stores faculty information.
+
+```text
+Faculty
+├── faculty_id
+├── name
+├── email
+├── phone_number
+└── department_id
 ```
 
-This supports the composite foreign-key relationship used by the `Enrollments` table.
+The dataset contains:
+
+```text
+25 Faculty Records
+```
+
+Faculty members are associated with departments using a Foreign Key.
+
+---
+
+## 📚 6. Courses Table
+
+The `Courses` table stores academic course information.
+
+```text
+Courses
+├── course_id
+├── course_name
+└── faculty_id
+```
+
+The `faculty_id` column references:
+
+```text
+Faculty.faculty_id
+```
+
+The dataset contains:
+
+```text
+25 Courses
+```
+
+Example courses include:
+
+* Python
+* Data Structures
+* Database Systems
+* Computer Architecture
+* Operating Systems
+* Financial Accounting
+* Business Economics
+* Business Law
+* Engineering Drawing
+* Basic Electronics
+* Computer Networks
+* Cyber Security
+* Cloud Computing
+* Software Engineering
+* Web Technology
+* Web Development
+* Principles of Management
+* Marketing Management
+* Human Resource Management
+* Business Communication
+* Entrepreneurship
 
 ---
 
@@ -407,15 +532,19 @@ The `Enrollments` table connects students with courses.
 
 ```text
 Enrollments
-├── EnrollmentID
-├── StudentID
-├── CourseID
-└── EnrollmentDate
+├── enrollment_id
+├── Student_id
+├── course_id
+└── enrollment_date
 ```
 
-The dataset contains **35 enrollment records**.
+The dataset contains:
 
-Foreign keys maintain relationships between:
+```text
+38 Enrollment Records
+```
+
+The table establishes the relationship:
 
 ```text
 Students  ←── Enrollments ──→ Courses
@@ -423,11 +552,94 @@ Students  ←── Enrollments ──→ Courses
 
 ---
 
+## 📅 8. Attendance Table
+
+The `Attendance` table records student attendance.
+
+```text
+Attendance
+├── attendance_id
+├── Student_id
+├── course_id
+├── attendance_date
+└── status
+```
+
+The dataset contains:
+
+```text
+60 Attendance Records
+```
+
+### Attendance Status
+
+The project uses three attendance statuses:
+
+```text
+Present
+Absent
+Late
+```
+
+Attendance values are interpreted as:
+
+| **Status** | **Value** |
+| ---------- | --------: |
+| Present    |         1 |
+| Late       |       0.5 |
+| Absent     |         0 |
+
+### Attendance Formula
+
+Attendance percentage is calculated using the equivalent attendance value:
+
+```text
+Attendance % =
+(SUM(Present + Late × 0.5) / Total Attendance Records) × 100
+```
+
+This allows late attendance to contribute partially toward attendance percentage.
+
+---
+
+## 📊 9. Grades Table
+
+The `Grades` table stores academic performance.
+
+```text
+Grades
+├── grade_id
+├── Student_id
+├── course_id
+├── marks_obtained
+└── grade
+```
+
+The dataset contains:
+
+```text
+30 Grade Records
+```
+
+The marks are used for:
+
+* Average marks analysis
+* Highest and lowest marks
+* Student ranking
+* Performance classification
+* Comparison with overall average
+
+---
+
 # 📊 Part B — Academic Data Analysis
+
+The SQL file contains **33 analytical queries** covering basic, intermediate and advanced SQL concepts.
+
+---
 
 ## 🛠️ 1. CRUD Operations
 
-The project demonstrates basic database operations across the tables.
+The project demonstrates fundamental database operations.
 
 ### Create
 
@@ -442,417 +654,620 @@ INSERT INTO ...
 Data is retrieved using:
 
 ```sql
-SELECT * FROM ...
+SELECT ...
+FROM ...
 ```
 
 ### Update
 
-The database structure supports updating existing records using:
+Student information is modified using:
 
 ```sql
-UPDATE ...
+UPDATE Students
+SET ...
+WHERE ...;
 ```
 
 ### Delete
 
-Records can be removed using:
+The project demonstrates deletion using:
 
 ```sql
-DELETE FROM ...
+DELETE ...
 ```
 
-The project therefore demonstrates the fundamental CRUD concept used in relational database systems.
+A deletion query removes students based on an enrollment-year condition.
+
+This demonstrates the fundamental **CRUD operations** used in relational database systems.
 
 ---
 
-## 📅 2. Students Enrolled After 2022 — Q2
+## 🗑️ 2. Student Deletion Analysis
 
-The project identifies students whose enrollment year is greater than 2022.
+The SQL file contains a deletion operation using an `INNER JOIN`:
 
 ```sql
-SELECT *
-FROM Students
-WHERE YEAR(EnrollmentDate) > 2022;
+DELETE s1
+FROM Students s1
+INNER JOIN Enrollments e1
+ON s1.Student_id = e1.Student_id
+WHERE YEAR(CURDATE()) - YEAR(e1.enrollment_date) = 1;
 ```
 
-### Result
+The operation removes matching student records based on the enrollment-year condition.
 
-**10 students** were enrolled after 2022.
+Because the student relationships use:
 
-The result includes students enrolled during:
+```sql
+ON DELETE CASCADE
+```
+
+related enrollment, attendance and grade records can also be affected when the corresponding student is deleted.
+
+---
+
+## 📅 3. Student Admission & Date Analysis
+
+The project uses date functions to analyze student admission and academic records.
+
+Examples include:
+
+```sql
+YEAR()
+MONTH()
+CURDATE()
+DATEDIFF()
+DATE_FORMAT()
+```
+
+These functions are used to:
+
+* Extract years
+* Extract months
+* Calculate elapsed time
+* Format dates
+* Perform time-based analysis
+
+---
+
+## 📊 4. Attendance Percentage Analysis
+
+Attendance records are converted into numerical values:
 
 ```text
-2023
-2024
-2025
-2026
+Present → 1
+Late    → 0.5
+Absent  → 0
 ```
 
----
+The project calculates attendance percentages for students and courses.
 
-## 📚 3. Mathematics Department Courses — Q3
-
-Courses offered by the Mathematics department are retrieved using an `INNER JOIN`.
-
-```sql
-SELECT c.CourseID,
-       d.DepartmentName,
-       c.CourseName
-FROM Courses c
-INNER JOIN Departments d
-ON c.DepartmentID = d.DepartmentID
-WHERE d.DepartmentName = 'Mathematics'
-LIMIT 5;
-```
-
-### Result
-
-The query returns the first five Mathematics courses:
-
-| Course ID | Department  | Course          |
-| --------: | ----------- | --------------- |
-|       102 | Mathematics | Data Structures |
-|       106 | Mathematics | Calculus        |
-|       111 | Mathematics | Linear Algebra  |
-|       115 | Mathematics | Probability     |
-|       117 | Mathematics | Statistics      |
-
----
-
-## 📊 4. Courses With More Than 5 Students — Q4
-
-`GROUP BY` and `HAVING` are used to identify courses with more than five enrolled students.
-
-```sql
-GROUP BY CourseName
-HAVING Number_Of_Student > 5;
-```
-
-### Result
-
-| Course              | Students |
-| ------------------- | -------: |
-| Data Structures     |        6 |
-| Introduction to SQL |        8 |
-| Machine Learning    |       11 |
-
-This shows that **Machine Learning has the highest enrollment in the current dataset with 11 students**.
-
----
-
-## 🔗 5. Students Enrolled in Both SQL & Data Structures — Q5
-
-The project identifies students enrolled in both:
-
-* Introduction to SQL
-* Data Structures
-
-The query uses `GROUP BY` and `HAVING COUNT(DISTINCT CourseID)`.
-
-### Result
-
-**5 students** are enrolled in both courses:
+### Overall Attendance Result
 
 ```text
-Jane
-Arjun
-Kavya
-Sneha
-Akash
+Average Attendance = 78.33%
 ```
 
-This demonstrates how SQL can identify students satisfying multiple course conditions.
+This provides an overall view of attendance performance across the dataset.
 
 ---
 
-## 🔍 6. Students Enrolled in SQL or Data Structures — Q6
+## ⚠️ 5. Students Below 75% Attendance
 
-The project retrieves students enrolled in either:
-
-```text
-Introduction to SQL
-OR
-Data Structures
-```
-
-### Result
-
-**9 students** are identified.
-
-The query demonstrates filtering with multiple conditions and ordering the resulting student records.
-
----
-
-## 📊 7. Average Course Credits — Q7
-
-The average number of credits across all courses is calculated using `AVG()`.
-
-```sql
-SELECT AVG(Credits)
-FROM Courses;
-```
+The project identifies students whose attendance is below the 75% threshold.
 
 ### Result
 
 ```text
-Average Course Credits = 3.2800
+12 students
 ```
 
-This provides an overall view of course credit distribution.
-
----
-
-## 👨‍🏫 8. Computer Science Instructor Count — Q8
-
-The project calculates the number of instructors belonging to the Computer Science department.
-
-```sql
-COUNT(*)
-```
-
-### Result
+were identified with attendance below:
 
 ```text
-Computer Science Instructors = 4
+75%
 ```
 
-This demonstrates combining `JOIN` and aggregate functions for department-level analysis.
+This demonstrates the use of:
 
----
-
-## 🏢 9. Students Enrolled in Each Department — Q9
-
-Students are counted by the department associated with their enrolled courses.
-
-```sql
-COUNT(DISTINCT StudentID)
-```
-
-### Result
-
-| Department       | Students |
-| ---------------- | -------: |
-| Commerce         |        3 |
-| Computer Science |       17 |
-| Diploma          |        3 |
-| Mathematics      |        7 |
-
-This query demonstrates:
-
-* Multiple `INNER JOIN`s
-* `COUNT(DISTINCT ...)`
+* `SUM()`
+* `CASE`
 * `GROUP BY`
+* `HAVING`
+* Percentage calculations
 
 ---
 
-## 🔗 10. INNER JOIN — Students & Courses — Q10
+## 🚫 6. Students Below 50% Attendance & Failing
 
-The project retrieves students and their corresponding courses using an `INNER JOIN`.
+The project also checks students who satisfy both:
 
-```sql
-SELECT e.StudentID,
-       c.CourseID,
-       c.CourseName,
-       c.DepartmentID,
-       c.Credits
-FROM Enrollments e
-INNER JOIN Courses c
-ON e.CourseID = c.CourseID
-ORDER BY e.StudentID;
+```text
+Attendance < 50%
+AND
+Failing Academic Performance
 ```
 
 ### Result
 
-The query returns **35 student-course enrollment relationships**.
+```text
+No matching students
+```
 
-This demonstrates how relational tables can be connected through Foreign Keys.
+were returned for the current dataset and query conditions.
+
+This demonstrates combining multiple academic conditions in SQL.
 
 ---
 
-## 🔗 11. LEFT JOIN — All Students & Courses — Q11
+## 📈 7. Attendance Performance Categories
 
-A `LEFT JOIN` is used to retrieve all students and their corresponding courses, if any.
+A `CASE` expression categorizes students according to attendance percentage.
 
 ```sql
-SELECT ...
-FROM Students s
-LEFT JOIN Enrollments e
-ON s.StudentID = e.StudentID
-LEFT JOIN Courses c
-ON e.CourseID = c.CourseID;
+CASE
+    WHEN attendance_percentage > 80 THEN 'Regular'
+    WHEN attendance_percentage >= 50 THEN 'Irregular'
+    ELSE 'Defaulter'
+END
 ```
 
-### Purpose
+### Classification
 
-This approach ensures that **all students are retained in the result**, including students who may not have a matching enrollment.
+| **Attendance Percentage** | **Category** |
+| ------------------------- | ------------ |
+| > 80%                     | Regular      |
+| 50% – 80%                 | Irregular    |
+| < 50%                     | Defaulter    |
 
-It demonstrates an important difference between:
+The analysis identifies students such as:
 
 ```text
-INNER JOIN → Matching records
-LEFT JOIN  → All records from left table + matches
+Student 26 → 25% → Defaulter
 ```
+
+while students with attendance between 50% and 80% are categorized as **Irregular**.
 
 ---
 
-## 🧠 12. Subquery — Students in Highly Enrolled Courses — Q12
+## 🏆 8. Highest & Lowest Marks
 
-A subquery identifies courses having more than **10 students**.
+The project analyzes student grades to identify academic extremes.
+
+### Highest Mark
+
+```text
+Student 30 → 96 marks
+```
+
+### Lowest Mark
+
+```text
+Student 20 → 38 marks
+```
+
+This demonstrates the use of:
 
 ```sql
-SELECT CourseID,
-       COUNT(EnrollmentID) AS Number_Of_Student
-FROM Enrollments
-GROUP BY CourseID
-HAVING Number_Of_Student > 10;
+MAX()
+MIN()
 ```
 
-The outer query then retrieves students enrolled in those courses.
-
-### Result
-
-The query identifies **11 students** enrolled in:
-
-```text
-Machine Learning
-```
-
-with:
-
-```text
-11 students
-```
-
-This demonstrates the use of a subquery with aggregation and joins.
+and related aggregation techniques.
 
 ---
 
-## 📅 13. Enrollment Year Extraction — Q13
+## 📊 9. Average Marks by Course
 
-The `YEAR()` function extracts the enrollment year from `EnrollmentDate`.
+The project calculates average marks for each course.
 
-```sql
-SELECT EnrollmentDate,
-       YEAR(EnrollmentDate) AS year_of_Enrollment
-FROM Students;
-```
+| **Course**                | **Average Marks** |
+| ------------------------- | ----------------: |
+| Python                    |             88.50 |
+| Data Structures           |             76.00 |
+| Database Systems          |             64.00 |
+| Computer Architecture     |             48.00 |
+| Operating Systems         |             88.00 |
+| Financial Accounting      |             68.00 |
+| Business Economics        |             91.00 |
+| Corporate Accounting      |             73.00 |
+| Business Law              |             42.00 |
+| Taxation                  |             67.00 |
+| Engineering Drawing       |             72.50 |
+| Basic Electronics         |             95.00 |
+| Computer Fundamentals     |             45.00 |
+| Technical Mathematics     |             78.00 |
+| Web Technology            |             52.00 |
+| Web Development           |             59.00 |
+| Computer Networks         |             38.00 |
+| Cyber Security            |             93.00 |
+| Cloud Computing           |             74.00 |
+| Software Engineering      |             61.00 |
+| Principles of Management  |             91.50 |
+| Marketing Management      |             57.00 |
+| Human Resource Management |             82.00 |
+| Business Communication    |             44.00 |
+| Entrepreneurship          |             72.00 |
 
-### Enrollment Years
-
-The dataset contains student enrollment years from:
+This analysis demonstrates:
 
 ```text
-2021 → 2026
+AVG()
+GROUP BY
+ORDER BY
 ```
 
-This demonstrates practical date extraction for academic reporting.
+for course-level performance analysis.
 
 ---
 
-## 🔤 14. Instructor Full Name — Q14
+## 🏅 10. Student Ranking Using DENSE_RANK()
 
-The `CONCAT()` function combines instructor first and last names.
-
-```sql
-SELECT FirstName,
-       LastName,
-       CONCAT(FirstName, ' ', LastName) AS FullName
-FROM Instructors;
-```
-
-### Example
-
-```text
-Alice Johnson
-Bob Lee
-Arjun Patel
-Meera Shah
-Vivek Joshi
-```
-
-This demonstrates SQL-based text transformation.
-
----
-
-## 📈 15. Running Total of Course Enrollments — Q15
-
-A Window Function is used to calculate the cumulative number of students enrolled across courses.
+A Window Function is used to rank students based on marks.
 
 ```sql
-SUM(Enrollments_Student)
+DENSE_RANK()
 OVER(
-    ORDER BY Enrollments_Student
-    ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ORDER BY marks_obtained DESC
 )
 ```
 
 ### Result
 
-| Course                         | Enrollments | Running Total |
-| ------------------------------ | ----------: | ------------: |
-| Accounting                     |           1 |             1 |
-| Linear Algebra                 |           1 |             2 |
-| Civil Engineering              |           1 |             3 |
-| Artificial Intelligence        |           1 |             4 |
-| Diploma In IT                  |           2 |             6 |
-| Finance                        |           2 |             8 |
-| Mobile Application Development |           2 |            10 |
-| Data Structures                |           6 |            16 |
-| Introduction to SQL            |           8 |            24 |
-| Machine Learning               |          11 |            35 |
+```text
+Rank 1 → Student 30 → 96 marks
+```
+
+This demonstrates advanced SQL ranking without collapsing individual student records.
+
+---
+
+## 📈 11. Students Above Overall Average
+
+The project compares individual student marks with the overall average.
+
+The query identifies:
+
+```text
+16 students
+```
+
+whose marks are above the overall average.
+
+This demonstrates the use of:
+
+* Aggregate functions
+* Subqueries
+* Comparison operators
+
+---
+
+## 👨‍🏫 12. Faculty With Multiple Courses
+
+The project identifies faculty members assigned to more than one course.
+
+### Result
+
+| **Faculty** | **Number of Courses** |
+| ----------- | --------------------: |
+| Amit Shah   |                     2 |
+| Neha Joshi  |                     2 |
+| Ravi Mehta  |                     3 |
+| Akash Mehta |                     2 |
+
+This demonstrates:
+
+```sql
+GROUP BY
+HAVING COUNT(*) > 1
+```
+
+---
+
+## 🚫 13. Faculty Without Courses
+
+The project checks whether any faculty members are not assigned to courses.
+
+### Result
+
+```text
+5 faculty members
+```
+
+were identified without course assignments:
+
+```text
+Faculty IDs 121 – 125
+```
+
+This demonstrates how `LEFT JOIN` can be used to identify unmatched records.
+
+---
+
+## 🎓 14. Students Not Enrolled in Courses
+
+The project identifies students who do not have enrollment records.
+
+### Result
+
+```text
+Meet Nakrani
+janu Pokiya
+```
+
+These students do not have corresponding enrollment records.
+
+This demonstrates the practical use of:
+
+```sql
+LEFT JOIN
+WHERE ... IS NULL
+```
+
+---
+
+## 📊 15. Students Without Grades
+
+A Full Outer Join-style analysis is used to identify students without corresponding grade records.
+
+### Result
+
+```text
+Student 34
+Student 35
+```
+
+These students do not have matching grade records in the dataset.
+
+---
+
+## 🏢 16. Students by Department
+
+The project performs department-wise student analysis.
+
+### Result
+
+| **Department**          | **Students** |
+| ----------------------- | -----------: |
+| Business Administration |            5 |
+| Commerce                |            7 |
+| Computer Science        |            7 |
+| Diploma                 |            6 |
+| Information Technology  |            7 |
+
+This demonstrates:
+
+```sql
+COUNT()
+GROUP BY
+JOIN
+```
+
+for department-level analysis.
+
+---
+
+## 📅 17. Attendance Month Analysis
+
+The `MONTH()` function is used to extract the month from attendance dates.
+
+The current attendance dataset contains:
+
+```text
+July
+```
+
+with:
+
+```text
+60 attendance records
+```
+
+This demonstrates practical date extraction for attendance reporting.
+
+---
+
+## ⏳ 18. Years Since Admission
+
+The project uses date-difference calculations to determine the number of years since student admission.
+
+Example function:
+
+```sql
+TIMESTAMPDIFF(
+    YEAR,
+    addmission_date,
+    CURDATE()
+)
+```
+
+For the current dataset, the remaining student records correspond to approximately:
+
+```text
+2 years since admission
+```
+
+based on the stored admission dates and current date.
+
+---
+
+## 📅 19. Date Formatting
+
+The project formats dates using:
+
+```sql
+DATE_FORMAT()
+```
+
+Example format:
+
+```text
+DD-MM-YYYY
+```
+
+This demonstrates how SQL can transform database dates into user-friendly reporting formats.
+
+---
+
+## 🔤 20. String Functions
+
+Several SQL string functions are demonstrated.
+
+### UPPER()
+
+Converts faculty names to uppercase:
+
+```sql
+UPPER(name)
+```
+
+### LOWER()
+
+Converts text to lowercase:
+
+```sql
+LOWER(name)
+```
+
+### TRIM()
+
+Removes unnecessary leading and trailing spaces:
+
+```sql
+TRIM(name)
+```
+
+### REPLACE()
+
+Replaces `NULL` or unwanted values using conditional logic.
+
+These operations demonstrate practical data-cleaning and transformation techniques.
+
+---
+
+## 📈 21. Cumulative Attendance Analysis
+
+A Window Function is used to calculate cumulative attendance-related values across courses.
+
+Example:
+
+```sql
+SUM(...)
+OVER(
+    ORDER BY ...
+    ROWS BETWEEN UNBOUNDED PRECEDING
+    AND CURRENT ROW
+)
+```
+
+This demonstrates how Window Functions can calculate cumulative metrics while preserving individual rows.
+
+---
+
+## 📈 22. Running Total of Student Enrollments
+
+The project calculates the running total of distinct students enrolled by month.
+
+The resulting cumulative counts include:
+
+| **Month** | **New Students** | **Running Total** |
+| --------- | ---------------: | ----------------: |
+| June      |               29 |                29 |
+| July      |                1 |                30 |
 
 ### Final Running Total
 
 ```text
-Total Course Enrollments = 35
+30 distinct students
 ```
 
-This demonstrates how Window Functions can calculate cumulative values while preserving individual rows.
+This demonstrates:
+
+```sql
+SUM() OVER()
+```
+
+combined with grouped date analysis.
 
 ---
 
-## 🏷️ 16. Student Senior / Junior Classification — Q16
+## 🏷️ 23. Student Performance Classification
 
-A `CASE` expression is used to classify students based on their enrollment date.
-
-```sql
-CASE
-    WHEN EnrollmentDate < DATE_SUB(CURDATE(), INTERVAL 4 YEAR)
-        THEN 'Senior'
-    ELSE 'Junior'
-END
-```
+A `CASE` expression categorizes students according to marks.
 
 ### Classification Rule
 
-| Condition                          | Status |
-| ---------------------------------- | ------ |
-| Enrollment more than 4 years ago   | Senior |
-| Enrollment within the last 4 years | Junior |
+| **Marks** | **Performance Level** |
+| --------- | --------------------- |
+| > 90      | Excellent             |
+| 75 – 90   | Good                  |
+| Below 75  | Needs Improvement     |
 
-Because the query uses `CURDATE()`, the classification can change automatically as time passes.
+Example:
+
+```sql
+CASE
+    WHEN marks_obtained > 90 THEN 'Excellent'
+    WHEN marks_obtained >= 75 THEN 'Good'
+    ELSE 'Needs Improvement'
+END
+```
+
+This converts numerical academic performance into meaningful categories.
+
+---
+
+## 📊 24. Course-wise Highest & Lowest Marks
+
+The project calculates the highest and lowest marks for individual courses.
+
+This provides course-level performance analysis and demonstrates the use of:
+
+```sql
+MAX()
+MIN()
+GROUP BY
+```
+
+---
+
+## 🧮 25. Overall Academic Analysis
+
+The project combines multiple SQL techniques to analyze:
+
+* Student performance
+* Course performance
+* Attendance
+* Faculty workload
+* Department distribution
+* Enrollment records
+* Academic rankings
+
+This makes the database suitable for practical SQL and data-analysis practice.
 
 ---
 
 # 🛠️ Tech Stack
 
-| Tool / Concept             | Purpose                                    |
-| -------------------------- | ------------------------------------------ |
-| 🐬 **MySQL 8.0**           | Relational database management             |
-| 💻 **SQL**                 | Data management and analysis               |
-| 🔐 **Primary Keys**        | Unique record identification               |
-| 🔗 **Foreign Keys**        | Maintaining table relationships            |
-| 🧩 **Constraints**         | Data integrity                             |
-| 🔗 **INNER JOIN**          | Matching relational data                   |
-| 🔗 **LEFT JOIN**           | Retrieving all records from the left table |
-| 📊 **Aggregate Functions** | `AVG`, `COUNT`, `SUM`                      |
-| 📋 **GROUP BY**            | Group-based analysis                       |
-| 🔎 **HAVING**              | Filtering grouped results                  |
-| 🧠 **Subqueries**          | Nested analytical queries                  |
-| 📅 **Date Functions**      | `YEAR`, `CURDATE`, `DATE_SUB`              |
-| 🔤 **String Functions**    | `CONCAT`                                   |
-| 📈 **Window Functions**    | Running-total analysis                     |
-| 🏷️ **CASE**               | Conditional classification                 |
+| **Tool / Concept**         | **Purpose**                                           |
+| -------------------------- | ----------------------------------------------------- |
+| 🐬 **MySQL 8.0**           | Relational Database Management System                 |
+| 💻 **SQL**                 | Data management and analysis                          |
+| 🔐 **Primary Keys**        | Unique record identification                          |
+| 🔗 **Foreign Keys**        | Maintaining table relationships                       |
+| 🛡️ **Constraints**        | Data integrity                                        |
+| 🗑️ **ON DELETE CASCADE**  | Maintaining dependent records                         |
+| 🔗 **INNER JOIN**          | Matching relational records                           |
+| 🔗 **LEFT JOIN**           | Finding matching and unmatched records                |
+| 🧠 **Subqueries**          | Nested analytical queries                             |
+| 📊 **Aggregate Functions** | `AVG`, `COUNT`, `SUM`, `MAX`, `MIN`                   |
+| 📋 **GROUP BY**            | Group-based analysis                                  |
+| 🔎 **HAVING**              | Filtering grouped results                             |
+| 📅 **Date Functions**      | `YEAR`, `MONTH`, `CURDATE`, `DATEDIFF`, `DATE_FORMAT` |
+| 🔤 **String Functions**    | `CONCAT`, `UPPER`, `LOWER`, `TRIM`, `REPLACE`         |
+| 📈 **Window Functions**    | Running totals and ranking                            |
+| 🏅 **DENSE_RANK()**        | Student ranking                                       |
+| 🏷️ **CASE**               | Conditional classification                            |
 
 ---
 
@@ -860,93 +1275,271 @@ Because the query uses `CURDATE()`, the classification can change automatically 
 
 After executing the SQL analysis, the project produces the following key results.
 
-### 🎓 Student Insights
+## 🎓 Student Insights
 
-* 👤 **20 total students**
-* 📅 Enrollment years range from **2021 to 2026**
-* 🎓 **10 students** enrolled after 2022
-* 🔗 Student-course relationships analyzed through enrollments
+* 👤 **35 students** were initially inserted
+* 🗑️ **3 students** were removed through the deletion operation
+* 🎓 **32 students** remain for subsequent analysis
+* 📊 **12 students** have attendance below 75%
+* 🚫 **2 students** are not enrolled in any course
+* 📊 **2 students** do not have grade records
+* 🏆 Highest recorded mark = **96**
+* 📉 Lowest recorded mark = **38**
+* 📈 **16 students** scored above the overall average
 
-### 📚 Course Insights
+---
 
-* 📚 **25 total courses**
-* 📊 **Average course credits = 3.28**
-* 🏆 **Machine Learning has 11 enrollments**
-* 📈 **Introduction to SQL has 8 enrollments**
-* 📊 **Data Structures has 6 enrollments**
-* 🔎 Three courses have more than 5 students
+## 📚 Course Insights
 
-### 🏢 Department Insights
+* 📚 **25 courses**
+* 📝 **38 enrollment records**
+* 📊 Average marks calculated for all 25 courses
+* 👥 Course enrollment analyzed using `COUNT()` and `GROUP BY`
+* 📈 Course-level highest and lowest marks identified
 
-| Department       | Students Enrolled |
-| ---------------- | ----------------: |
-| Computer Science |                17 |
-| Mathematics      |                 7 |
-| Commerce         |                 3 |
-| Diploma          |                 3 |
+---
 
-### 👨‍🏫 Instructor Insights
+## 📅 Attendance Insights
 
-* 👨‍🏫 **20 instructors**
-* 💻 **4 instructors** belong to Computer Science
-* 🔗 Instructor records are connected with departments using Foreign Keys
+* 📅 **60 attendance records**
+* 📊 Overall average attendance = **78.33%**
+* ⚠️ **12 students** have attendance below 75%
+* 🚫 Students below 50% attendance and failing returned **no matching records**
+* 📅 Attendance records are concentrated in **July**
+* 🏷️ Students are classified as:
 
-### 📈 Advanced SQL Insights
+  * Regular
+  * Irregular
+  * Defaulter
 
-* Total enrollment relationships = **35**
-* Running total reaches **35**
-* Subquery identifies **Machine Learning** as a course with more than 10 enrollments
-* `CASE` dynamically classifies students based on enrollment age
+---
+
+## 👨‍🏫 Faculty Insights
+
+* 👨‍🏫 **25 faculty records**
+* 📚 Faculty course assignments analyzed
+* 👨‍🏫 Multiple-course faculty identified
+* 🚫 **5 faculty members** have no assigned courses
+
+Faculty members with more than one course include:
+
+| **Faculty** | **Courses** |
+| ----------- | ----------: |
+| Amit Shah   |           2 |
+| Neha Joshi  |           2 |
+| Ravi Mehta  |           3 |
+| Akash Mehta |           2 |
+
+---
+
+## 🏢 Department Insights
+
+The remaining student population is distributed as follows:
+
+| **Department**          | **Students** |
+| ----------------------- | -----------: |
+| Business Administration |            5 |
+| Commerce                |            7 |
+| Computer Science        |            7 |
+| Diploma                 |            6 |
+| Information Technology  |            7 |
+
+---
+
+## 🏆 Academic Performance Insights
+
+### Highest Mark
+
+```text
+Student 30 → 96
+```
+
+### Lowest Mark
+
+```text
+Student 20 → 38
+```
+
+### Ranking
+
+```text
+DENSE_RANK()
+```
+
+is used to rank students according to marks.
+
+### Performance Categories
+
+```text
+Excellent
+Good
+Needs Improvement
+```
+
+---
+
+## 📈 Advanced SQL Insights
+
+The project demonstrates:
+
+* 🔗 Multiple-table JOINs
+* 🧠 Subqueries
+* 📊 Aggregations
+* 📈 Window Functions
+* 🏅 `DENSE_RANK()`
+* 📅 Date-based analysis
+* 🔤 String transformations
+* 🏷️ `CASE` classifications
+* 📊 Running totals
+* 🎓 Academic performance analysis
+* 📅 Attendance percentage calculations
 
 ---
 
 # 🔍 Data Quality & Design Notes
 
-The project demonstrates several important database-design considerations:
+The project demonstrates several important relational database design concepts.
 
-* `DepartmentID` is used as a Foreign Key in both Courses and Instructors.
-* `Email` in the Instructors table is defined as `UNIQUE`.
-* Students use a composite unique constraint on `(StudentID, EnrollmentDate)`.
-* The Enrollments table uses a composite Foreign Key for StudentID and EnrollmentDate.
-* `ON DELETE CASCADE` is used for the student relationship in Enrollments.
-* Course enrollment analysis uses `COUNT(DISTINCT StudentID)` where unique student counting is required.
-* Q16 uses `CURDATE()`, so Senior/Junior classification changes automatically according to the current date.
-* The dataset contains enrollment records across multiple academic years, making it suitable for date-based analysis.
+### 🔐 Primary Keys
 
-### ⚠️ Important Referential-Integrity Observation
+Each major table contains a Primary Key for unique record identification.
 
-The current `Enrollments` data references course IDs such as:
+Examples:
 
 ```text
-125
+Departments.department_id
+Students.Student_id
+Faculty.faculty_id
+Courses.course_id
+Enrollments.enrollment_id
+Attendance.attendance_id
+Grades.grade_id
 ```
 
-while the course insertion shown creates course IDs up to:
+### 🔗 Foreign Keys
+
+Relationships are maintained through Foreign Keys between:
 
 ```text
-125
+Departments → Students
+Departments → Faculty
+Faculty → Courses
+Students → Enrollments
+Courses → Enrollments
+Students → Attendance
+Courses → Attendance
+Students → Grades
+Courses → Grades
 ```
 
-Therefore, the SQL file should be executed in the intended sequence so that all referenced course records exist before enrollment records are inserted.
+### 🗑️ Cascade Deletion
+
+Student-dependent tables use:
+
+```sql
+ON DELETE CASCADE
+```
+
+This helps maintain referential integrity when a student record is deleted.
+
+### 📊 Attendance Logic
+
+Attendance uses weighted values:
+
+```text
+Present = 1
+Late    = 0.5
+Absent  = 0
+```
+
+This enables more detailed attendance percentage calculations.
+
+### 📅 Dynamic Date Functions
+
+Several queries use:
+
+```sql
+CURDATE()
+```
+
+Therefore, time-based results can change automatically as the current date changes.
+
+---
+
+## ⚠️ Important Design Observations
+
+### 1. Admission-Date Column Naming
+
+The actual SQL schema uses:
+
+```text
+addmission_date
+```
+
+instead of the conventional spelling:
+
+```text
+admission_date
+```
+
+For consistency, the README reflects the actual SQL schema.
+
+### 2. Student Deletion Logic
+
+The deletion query uses:
+
+```sql
+YEAR(CURDATE()) - YEAR(enrollment_date) = 1
+```
+
+This compares calendar years rather than exact elapsed time.
+
+For a production system, a more precise date comparison could be used.
+
+### 3. Attendance and Grade Relationships
+
+For more precise course-level analysis, Attendance and Grades should generally be joined using both:
+
+```text
+Student_id
++
+course_id
+```
+
+to avoid accidental matching between different courses for the same student.
+
+### 4. Data Validation
+
+For a production-ready version, additional constraints could be added for:
+
+* Duplicate enrollments
+* Duplicate attendance records
+* Valid marks range
+* Valid attendance status
+* Unique student email
+* Valid phone numbers
 
 ---
 
 # 🏆 Advantages
 
-| Advantage                      | Detail                                                     |
-| ------------------------------ | ---------------------------------------------------------- |
-| 🎓 **Academic Use Case**       | Represents a realistic university database                 |
-| 🗄️ **Relational Design**      | Uses multiple connected tables                             |
-| 🔐 **Data Integrity**          | Uses Primary Keys, Foreign Keys and constraints            |
-| 🔗 **JOIN Practice**           | Demonstrates INNER and LEFT JOIN                           |
-| 🧠 **Analytical SQL**          | Uses subqueries and aggregate functions                    |
-| 📊 **Business-style Analysis** | Applies grouping and filtering                             |
-| 📅 **Date Analysis**           | Extracts enrollment years and calculates time-based status |
-| 🔤 **Data Transformation**     | Uses string functions                                      |
-| 📈 **Advanced SQL**            | Uses Window Functions                                      |
-| 🏷️ **Conditional Logic**      | Uses CASE expressions                                      |
-| 📚 **Portfolio Ready**         | Demonstrates practical SQL skills                          |
-| 🚀 **Extensible**              | Can be expanded with CTEs, views and dashboards            |
+| **Advantage**               | **Details**                                      |
+| --------------------------- | ------------------------------------------------ |
+| 🎓 **Academic Use Case**    | Represents a realistic student management system |
+| 🗄️ **Relational Design**   | Uses seven connected database tables             |
+| 🔐 **Data Integrity**       | Uses Primary Keys and Foreign Keys               |
+| 🗑️ **Cascade Operations**  | Demonstrates `ON DELETE CASCADE`                 |
+| 🔗 **JOIN Practice**        | Demonstrates relational table joins              |
+| 🧠 **Analytical SQL**       | Uses aggregation and subqueries                  |
+| 📊 **Attendance Analysis**  | Calculates attendance percentages                |
+| 🏆 **Performance Analysis** | Analyzes student marks and grades                |
+| 📈 **Advanced SQL**         | Uses Window Functions                            |
+| 🏅 **Ranking**              | Uses `DENSE_RANK()`                              |
+| 📅 **Date Analysis**        | Uses multiple SQL date functions                 |
+| 🔤 **Data Transformation**  | Uses SQL string functions                        |
+| 🏷️ **Conditional Logic**   | Uses `CASE` expressions                          |
+| 📚 **Portfolio Ready**      | Demonstrates practical SQL skills                |
+| 🚀 **Extensible**           | Can be expanded with dashboards and advanced SQL |
 
 ---
 
@@ -954,51 +1547,77 @@ Therefore, the SQL file should be executed in the intended sequence so that all 
 
 Possible extensions for the project:
 
-* [ ] Add `UPDATE` and `DELETE` examples for every table
-* [ ] Add `RIGHT JOIN` and Full Outer Join simulation
-* [ ] Add Common Table Expressions (**CTEs**)
-* [ ] Add `ROW_NUMBER()` and `DENSE_RANK()`
-* [ ] Add advanced Window Functions
-* [ ] Create SQL Views for academic reports
-* [ ] Add indexes and analyze execution plans
-* [ ] Add stored procedures
-* [ ] Add student GPA calculation
-* [ ] Add semester-wise enrollment analysis
-* [ ] Add department-wise course analysis
-* [ ] Add instructor course assignments
-* [ ] Add student performance/grades tables
-* [ ] Connect MySQL with **Power BI**
-* [ ] Build an interactive University Analytics Dashboard
+* ➕ Add unique constraints for enrollment records
+* ➕ Add unique attendance constraints per student/course/date
+* ➕ Add student GPA calculation
+* ➕ Add semester management
+* ➕ Add academic year management
+* ➕ Add examination and assignment tables
+* ➕ Add more advanced CTE queries
+* ➕ Add Recursive CTE examples
+* ➕ Add `ROW_NUMBER()`
+* ➕ Add more Window Functions
+* ➕ Add SQL Views for academic reports
+* ➕ Add Stored Procedures
+* ➕ Add Triggers
+* ➕ Add indexes for performance optimization
+* ➕ Analyze execution plans
+* ➕ Add student-wise performance dashboards
+* ➕ Add department-wise attendance dashboards
+* ➕ Connect MySQL with **Power BI**
+* ➕ Build an interactive **Student Analytics Dashboard**
+* ➕ Integrate Python for advanced statistical analysis
+* ➕ Build an ML model for student performance prediction
 
 ---
 
 # ▶️ How to Run
 
-## 1️⃣ Create the Database
+## 1️⃣ Install MySQL
+
+Make sure MySQL 8.0 or later is installed on your system.
+
+Verify the installation:
+
+```sql
+SELECT VERSION();
+```
+
+---
+
+## 2️⃣ Create the Database
 
 Open **MySQL Command Line** and run:
 
 ```sql
-CREATE DATABASE University_Course_Management_System;
+CREATE DATABASE Student_Performance_andAttendance_Tracker;
 ```
 
-## 2️⃣ Select the Database
+---
+
+## 3️⃣ Select the Database
 
 ```sql
-USE University_Course_Management_System;
+USE Student_Performance_andAttendance_Tracker;
 ```
 
-## 3️⃣ Run the SQL File
+---
 
-From the terminal:
+## 4️⃣ Run the SQL File
+
+From the MySQL command line:
 
 ```bash
-mysql -u root -p < University_Course_Management_System.sql
+mysql -u root -p < Student_Performance_and_Attendance_Tracker.sql
 ```
 
 Enter your MySQL password when prompted.
 
-## 4️⃣ Verify the Database
+---
+
+## 5️⃣ Verify the Tables
+
+Run:
 
 ```sql
 SHOW TABLES;
@@ -1007,30 +1626,123 @@ SHOW TABLES;
 Expected tables:
 
 ```text
+Attendance
 Courses
 Departments
 Enrollments
-Instructors
+Faculty
+Grades
 Students
 ```
 
-## 5️⃣ Execute the Analysis Queries
+---
 
-Run the SQL analysis queries from the SQL file to reproduce the academic analysis and outputs.
+## 6️⃣ Verify the Database
+
+```sql
+SELECT DATABASE();
+```
+
+Expected result:
+
+```text
+Student_Performance_andAttendance_Tracker
+```
+
+---
+
+## 7️⃣ Execute the Analysis Queries
+
+Run the analytical queries from the SQL file to reproduce:
+
+* Attendance analysis
+* Student performance analysis
+* Course analysis
+* Faculty analysis
+* Department analysis
+* Ranking
+* Date analysis
+* String transformation
+* Running totals
+* Student classification
+
+---
+
+# 📊 SQL Concepts Covered
+
+```text
+✓ Database Creation
+✓ Table Creation
+✓ INSERT
+✓ SELECT
+✓ UPDATE
+✓ DELETE
+✓ Primary Keys
+✓ Foreign Keys
+✓ Constraints
+✓ ON DELETE CASCADE
+✓ INNER JOIN
+✓ LEFT JOIN
+✓ Subqueries
+✓ GROUP BY
+✓ HAVING
+✓ COUNT()
+✓ SUM()
+✓ AVG()
+✓ MAX()
+✓ MIN()
+✓ CASE
+✓ YEAR()
+✓ MONTH()
+✓ CURDATE()
+✓ DATEDIFF()
+✓ DATE_FORMAT()
+✓ TIMESTAMPDIFF()
+✓ CONCAT()
+✓ UPPER()
+✓ LOWER()
+✓ TRIM()
+✓ REPLACE()
+✓ DENSE_RANK()
+✓ SUM() OVER()
+✓ Running Totals
+✓ Attendance Percentage
+✓ Academic Classification
+```
+
+---
+
+# 🎯 Learning Outcomes
+
+By completing this project, the following practical SQL skills are demonstrated:
+
+* Designing relational databases
+* Creating connected database tables
+* Applying Primary and Foreign Keys
+* Maintaining referential integrity
+* Performing CRUD operations
+* Joining multiple tables
+* Writing analytical SQL queries
+* Using aggregate functions
+* Working with subqueries
+* Performing date-based analysis
+* Performing string transformations
+* Using Window Functions
+* Ranking records using `DENSE_RANK()`
+* Creating running totals
+* Calculating attendance percentages
+* Classifying academic performance
+* Converting raw academic data into meaningful insights
 
 ---
 
 # 👤 Author
-
-<div align="center">
 
 ### **Himanshi Sangani**
 
 🎓 **Bachelor of Computer Application**
 
 > *"Learning SQL today, building data-driven solutions tomorrow."*
-
-</div>
 
 ---
 
@@ -1041,6 +1753,9 @@ Special thanks to the learning resources and communities that support SQL and da
 * 📚 **MySQL Documentation** — SQL syntax and database reference
 * 💻 **SQL Learning Platforms** — Query practice and problem solving
 * 📖 **Data Analytics Communities** — Practical SQL concepts and examples
-* 🧪 **Hands-on Practice** — Realistic academic datasets and SQL exercises
+* 🧪 **Hands-on Practice** — Academic datasets and SQL exercises
+* 🚀 **Continuous Learning** — Building practical database projects for portfolio development
 
 ---
+
+
