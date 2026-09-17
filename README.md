@@ -183,9 +183,7 @@ The goal is to demonstrate **practical SQL, relational database design, data int
 │
 ├── 📄 README.md
 │   └── Project Documentation
-│
-└── 📁 Screenshots/
-    └── SQL Query Outputs
+
 ```
 
 ---
